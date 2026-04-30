@@ -183,7 +183,7 @@ export function DashboardClient({ githubProfile, githubRepo, githubCommits, gith
                     <a key={wf.id} href={wf.html_url} target="_blank" rel="noreferrer" className="flex items-center justify-between group">
                       <div className="truncate">
                         <p className="text-sm font-medium group-hover:underline truncate max-w-[150px]">{wf.name}</p>
-                        <p className="text-xs text-muted-foreground">{new Date(wf.created_at).toLocaleDateString()}</p>
+                        <p className="text-xs text-muted-foreground">{wf.created_at.split("T")[0]}</p>
                       </div>
                       <Badge variant={wf.conclusion === "success" ? "default" : wf.conclusion === "failure" ? "destructive" : "secondary"} className="text-[10px] uppercase">
                         {wf.conclusion || wf.status}
@@ -223,7 +223,7 @@ export function DashboardClient({ githubProfile, githubRepo, githubCommits, gith
                       <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
                         <span className="font-mono text-[10px] bg-muted px-1 rounded">{c.sha.substring(0, 7)}</span>
                         <span>•</span>
-                        <span>{new Date(c.commit.author.date).toLocaleString()}</span>
+                        <span>{c.commit.author.date.replace("T", " ").replace("Z", "")}</span>
                       </div>
                     </div>
                   </div>
