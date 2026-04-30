@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Map, CheckSquare, BookOpen,
-  FlaskConical, Settings, Code2,
+  Beaker, Settings, Code2,
   GitBranch, TestTube2, X
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -23,7 +23,7 @@ const navigation = [
       { title: "Roadmap", href: "/roadmap", icon: Map },
       { title: "Skill Checklist", href: "/checklist", icon: CheckSquare },
       { title: "Daily Log", href: "/daily-log", icon: BookOpen },
-      { title: "Test Coverage", href: "/test-coverage", icon: FlaskConical, badge: "≥80%" },
+      { title: "Test Coverage", href: "/test-coverage", icon: Beaker, badge: "≥80%" },
     ],
   },
   {

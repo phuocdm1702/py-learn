@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className={`${inter.variable} font-[var(--font-inter)] antialiased`}>
+      <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -29,6 +29,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
+      </head>
+      <body className={`${inter.variable} font-[var(--font-inter)] antialiased`}>
         {children}
       </body>
     </html>
