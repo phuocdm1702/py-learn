@@ -31,6 +31,15 @@ const defaultEntry = (): Omit<DailyLogEntry, "id"> => ({
   notes: "",
 })
 
+/**
+ * Render the Daily Log page that lets the user add, view, and remove study log entries.
+ *
+ * Persists entries in local storage under the key "py_daily_logs". The UI includes a header
+ * with entry count and total hours, a toggleable form for creating a new entry (which will not
+ * save if the topic is empty), and a table that lists saved entries with controls to delete them.
+ *
+ * @returns A React element containing the Daily Log UI: header with totals, an optional add-entry form, and a table of saved entries.
+ */
 export default function DailyLogPage() {
   const [logs, setLogs] = useLocalStorage<DailyLogEntry[]>("py_daily_logs", [])
   const [showForm, setShowForm] = useState(false)

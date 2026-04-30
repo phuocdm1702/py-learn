@@ -9,6 +9,15 @@ interface HeaderProps {
   title?: string
 }
 
+/**
+ * Renders a sticky site header with an optional title, a mobile menu button, and a persistent light/dark theme toggle.
+ *
+ * The theme toggle persists the user's preference in localStorage under `py_theme` and synchronizes the `dark` class on the document root.
+ *
+ * @param onMenuClick - Callback invoked when the mobile menu button is clicked
+ * @param title - Optional page title displayed on medium and larger screens
+ * @returns The header element containing the menu button, optional title, and theme toggle
+ */
 export function Header({ onMenuClick, title }: HeaderProps) {
   const [isDark, setIsDark] = useState(true)
 

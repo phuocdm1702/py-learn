@@ -18,6 +18,13 @@ const groups: { key: SkillGroup; label: string; emoji: string; color: string }[]
   { key: "devops", label: "DevOps", emoji: "🚀", color: "text-orange-400" },
 ]
 
+/**
+ * Render a skill completion checklist with overall and per-group progress, interactive toggles, and tabbed group views.
+ *
+ * Persists skill completion state in local storage under the key "py_skills".
+ *
+ * @returns A React element containing the checklist UI: an overall progress card, per-group summaries, tabs for each group (and an "All" view), and interactive checkboxes to toggle skill completion.
+ */
 export default function ChecklistPage() {
   const [skills, setSkills] = useLocalStorage<SkillItem[]>("py_skills", initialSkillChecklist)
 

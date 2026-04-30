@@ -2,6 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react"
 
+/**
+ * Provide a stateful value synchronized with `localStorage`.
+ *
+ * @param key - The `localStorage` key used to read and persist the value
+ * @param initialValue - Value used while loading or when no stored value exists
+ * @returns A tuple: `[storedValue, setValue, isLoaded]` where `storedValue` is the current value, `setValue` updates both state and `localStorage`, and `isLoaded` is `true` after the initial read attempt completes
+ */
 export function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(initialValue)
   const [isLoaded, setIsLoaded] = useState(false)
