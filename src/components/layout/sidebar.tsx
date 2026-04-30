@@ -4,10 +4,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Map, CheckSquare, BookOpen,
-  FlaskConical, Settings, ChevronDown, Code2,
-  GitBranch, TestTube2, Wrench, X, Menu
+  FlaskConical, Settings, Code2,
+  GitBranch, TestTube2, X
 } from "lucide-react"
-import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 

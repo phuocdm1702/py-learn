@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Settings, User, Monitor, Clock, CalendarDays, Palette } from "lucide-react"
+import { User, Monitor, Clock, CalendarDays, Palette } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

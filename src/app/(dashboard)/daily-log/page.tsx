@@ -125,7 +125,7 @@ export default function DailyLogPage() {
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <BookOpen className="h-12 w-12 text-muted-foreground/30 mb-4" />
               <p className="text-muted-foreground text-sm">Chưa có log nào</p>
-              <p className="text-muted-foreground/60 text-xs mt-1">Nhấn "Thêm Log" để bắt đầu tracking</p>
+              <p className="text-muted-foreground/60 text-xs mt-1">Nhấn &quot;Thêm Log&quot; để bắt đầu tracking</p>
             </div>
           ) : (
             <Table>

@@ -1,8 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { CheckCircle2, Circle } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { CheckCircle2 } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -20,7 +19,7 @@ const groups: { key: SkillGroup; label: string; emoji: string; color: string }[]
 ]
 
 export default function ChecklistPage() {
-  const [skills, setSkills, isLoaded] = useLocalStorage<SkillItem[]>("py_skills", initialSkillChecklist)
+  const [skills, setSkills] = useLocalStorage<SkillItem[]>("py_skills", initialSkillChecklist)
 
   const toggle = (id: string) => {
     setSkills(prev => prev.map(s => s.id === id ? { ...s, completed: !s.completed } : s))

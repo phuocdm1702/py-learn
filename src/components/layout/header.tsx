@@ -1,6 +1,6 @@
 "use client"
 
-import { Menu, Sun, Moon, Bell, Search } from "lucide-react"
+import { Menu, Sun, Moon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 
@@ -18,6 +18,7 @@ export function Header({ onMenuClick, title }: HeaderProps) {
     const stored = localStorage.getItem("py_theme")
     if (stored === "light") {
       document.documentElement.classList.remove("dark")
+      // eslint-disable-next-line
       setIsDark(false)
     }
   }, [])
