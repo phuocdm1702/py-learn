@@ -19,6 +19,17 @@ const weeklyProgress = [
   { day: "T5", hours: 2 }, { day: "T6", hours: 3.5 }, { day: "T7", hours: 4 }, { day: "CN", hours: 2 },
 ]
 
+/**
+ * Render a dashboard metric card with an icon, title, value, and optional subtitle.
+ *
+ * @param title - The card header title shown in muted text.
+ * @param value - The primary metric displayed prominently.
+ * @param subtitle - Optional small muted subtitle shown beneath the value.
+ * @param icon - Icon component (e.g., a Lucide icon) rendered inside a colored container.
+ * @param color - Theme color token used for the icon and its background (Tailwind color name, defaults to "primary").
+ * @param iconColor - Optional Tailwind text color classes to override the icon's color.
+ * @returns The JSX element for the stat card.
+ */
 function StatCard({
   title, value, subtitle, icon: Icon, color = "primary", iconColor
 }: {
@@ -49,6 +60,16 @@ interface DashboardClientProps {
   githubLanguages: GithubLanguages | null
 }
 
+/**
+ * Render the client dashboard combining local learning progress with GitHub repository, commit, workflow, and language metrics.
+ *
+ * @param githubProfile - GitHub user profile data or `null` when unavailable
+ * @param githubRepo - GitHub repository data for the dashboard or `null` to hide repo metrics
+ * @param githubCommits - Array of recent commit objects displayed in the Live Commits panel
+ * @param githubWorkflows - Array of workflow run objects displayed in the GitHub Actions panel
+ * @param githubLanguages - Language-byte map used to compute top repo languages, or `null` when not provided
+ * @returns The dashboard UI as a React element
+ */
 export function DashboardClient({ githubProfile, githubRepo, githubCommits, githubWorkflows, githubLanguages }: DashboardClientProps) {
   const [skills] = useLocalStorage<SkillItem[]>("py_skills", initialSkillChecklist)
   const [logs] = useLocalStorage<DailyLogEntry[]>("py_daily_logs", [])

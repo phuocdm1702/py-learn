@@ -15,6 +15,16 @@ const statusIcon = {
   "not-tested": <AlertCircle className="h-4 w-4 text-muted-foreground" />,
 }
 
+/**
+ * Renders the Test Coverage page showing overall metrics and per-module details.
+ *
+ * Reads coverage entries from local storage key "py_test_coverage" and displays:
+ * - an overall coverage metric with a progress bar and 80% target indicator,
+ * - a modules-passed count,
+ * - a table listing each module's coverage, target, status, and last run time.
+ *
+ * @returns The React element for the Test Coverage page.
+ */
 export default function TestCoveragePage() {
   const [coverage] = useLocalStorage<TestCoverageEntry[]>("py_test_coverage", initialTestCoverage)
 
