@@ -1,9 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import { FlaskConical, AlertCircle, CheckCircle2, XCircle } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useLocalStorage } from "@/hooks/use-local-storage"
@@ -18,7 +16,7 @@ const statusIcon = {
 }
 
 export default function TestCoveragePage() {
-  const [coverage, setCoverage] = useLocalStorage<TestCoverageEntry[]>("py_test_coverage", initialTestCoverage)
+  const [coverage] = useLocalStorage<TestCoverageEntry[]>("py_test_coverage", initialTestCoverage)
 
   const overallCoverage = Math.round(
     coverage.reduce((sum, c) => sum + c.coverage, 0) / (coverage.length || 1)

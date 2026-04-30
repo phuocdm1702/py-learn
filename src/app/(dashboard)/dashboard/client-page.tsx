@@ -1,12 +1,12 @@
 "use client"
+import Image from "next/image"
 
-import { BookOpen, CheckSquare, Flame, Clock, Target, Globe, GitCommit, GitFork, Star, CircleDot, PlayCircle, Code2 } from "lucide-react"
+import { BookOpen, CheckSquare, Flame, Clock, Globe, GitCommit, GitFork, Star, CircleDot, PlayCircle, Code2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
-  RadarChart, PolarGrid, PolarAngleAxis, Radar
 } from "recharts"
 import { initialSkillChecklist, initialRoadmapLayers } from "@/data/seed-data"
 import { useLocalStorage } from "@/hooks/use-local-storage"
@@ -18,14 +18,6 @@ const weeklyProgress = [
   { day: "T2", hours: 2.5 }, { day: "T3", hours: 3 }, { day: "T4", hours: 1.5 },
   { day: "T5", hours: 2 }, { day: "T6", hours: 3.5 }, { day: "T7", hours: 4 }, { day: "CN", hours: 2 },
 ]
-
-const skillRadar = [
-  { subject: "Python Core", value: 20 }, { subject: "Architecture", value: 0 },
-  { subject: "Testing", value: 5 }, { subject: "DevOps", value: 0 },
-  { subject: "Database", value: 0 }, { subject: "Backend", value: 0 },
-]
-
-const workflowSteps = ["THINK", "PROPOSE", "CODE", "TEST", "REVIEW", "FIX"] as const
 
 function StatCard({
   title, value, subtitle, icon: Icon, color = "primary", iconColor
@@ -96,7 +88,7 @@ export function DashboardClient({ githubProfile, githubRepo, githubCommits, gith
         </div>
         {githubProfile && (
           <div className="flex items-center gap-3 bg-muted/50 p-2.5 rounded-lg border border-border">
-            <img src={githubProfile.avatar_url} alt="GitHub" className="w-8 h-8 rounded-full border border-border" />
+            <Image src={githubProfile.avatar_url} alt="GitHub" width={32} height={32} className="rounded-full border border-border" />
             <div className="text-sm">
               <p className="font-semibold">{githubProfile.login}</p>
               <p className="text-xs text-muted-foreground">{githubProfile.public_repos} Public Repos</p>

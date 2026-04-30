@@ -1,6 +1,6 @@
 "use client"
 
-import { CheckCircle2, Circle, Lock, Zap, GitBranch, TestTube2, Code2 } from "lucide-react"
+import { CheckCircle2, Lock, Zap } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
