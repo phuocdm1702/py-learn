@@ -126,4 +126,6 @@ export const defaultSettings: UserSettings = {
   daysPerWeek: 5,
   targetWeeks: 24,
   theme: "dark",
+  githubUsername: "phuocdm1702",
+  githubRepo: "py-learn",
 }

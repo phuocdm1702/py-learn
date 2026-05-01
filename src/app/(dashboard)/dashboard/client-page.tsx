@@ -14,10 +14,22 @@ import type { SkillItem, DailyLogEntry } from "@/types"
 import type { GithubProfile, GithubRepo, GithubCommit, GithubWorkflowRun, GithubLanguages } from "@/types/github"
 import { cn } from "@/lib/utils"
 
-const weeklyProgress = [
-  { day: "T2", hours: 2.5 }, { day: "T3", hours: 3 }, { day: "T4", hours: 1.5 },
-  { day: "T5", hours: 2 }, { day: "T6", hours: 3.5 }, { day: "T7", hours: 4 }, { day: "CN", hours: 2 },
-]
+// Color variants for StatCard - predefined for Tailwind JIT
+const colorVariants: Record<string, string> = {
+  primary: "bg-primary/10",
+  amber: "bg-amber-500/10",
+  blue: "bg-blue-500/10",
+  emerald: "bg-emerald-500/10",
+  purple: "bg-purple-500/10",
+}
+
+const iconColorVariants: Record<string, string> = {
+  primary: "text-primary",
+  amber: "text-amber-400",
+  blue: "text-blue-400",
+  emerald: "text-emerald-400",
+  purple: "text-purple-400",
+}
 
 function StatCard({
   title, value, subtitle, icon: Icon, color = "primary", iconColor
@@ -29,8 +41,8 @@ function StatCard({
     <Card className="relative overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-        <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-${color}/10`}>
-          <Icon className={cn("h-4 w-4", iconColor || `text-${color}`)} />
+        <div className={cn("flex h-9 w-9 items-center justify-center rounded-lg", colorVariants[color] || colorVariants.primary)}>
+          <Icon className={cn("h-4 w-4", iconColor || iconColorVariants[color] || iconColorVariants.primary)} />
         </div>
       </CardHeader>
       <CardContent>
@@ -59,7 +71,46 @@ export function DashboardClient({ githubProfile, githubRepo, githubCommits, gith
 
   const completedLayers = initialRoadmapLayers.filter(l => l.status === "completed").length
   const totalHours = logs?.reduce((sum, l) => sum + l.hours, 0) || 0
-  const currentStreak = 3 // mock
+
+  // Calculate streak from daily logs
+  const calculateStreak = (logEntries: DailyLogEntry[]): number => {
+    if (!logEntries || logEntries.length === 0) return 0
+    const dates = [...new Set(logEntries.map(l => l.date))].sort().reverse()
+    let streak = 0
+    const today = new Date()
+    
+    for (let i = 0; i < dates.length; i++) {
+      const expectedDate = new Date(today)
+      expectedDate.setDate(today.getDate() - i)
+      const expected = expectedDate.toISOString().split("T")[0]
+      if (dates[i] === expected) streak++
+      else break
+    }
+    return streak
+  }
+  const currentStreak = calculateStreak(logs || [])
+
+  // Calculate weekly progress from logs
+  const getWeekProgress = () => {
+    const days = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+    const today = new Date()
+    const weekData = []
+    
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today)
+      date.setDate(today.getDate() - i)
+      const dateStr = date.toISOString().split("T")[0]
+      const dayLogs = logs?.filter(l => l.date === dateStr) || []
+      const hours = dayLogs.reduce((sum, l) => sum + l.hours, 0)
+      weekData.push({
+        day: days[date.getDay()],
+        hours: Math.round(hours * 10) / 10,
+        date: dateStr
+      })
+    }
+    return weekData
+  }
+  const weeklyProgress = getWeekProgress()
 
   const groupProgress = (group: string) => {
     const g = skills?.filter(s => s.group === group) || []
@@ -110,10 +161,10 @@ export function DashboardClient({ githubProfile, githubRepo, githubCommits, gith
 
       {/* Local Learning Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Skill Hoàn Thành" value={`${completedSkills}/${totalSkills}`} subtitle={`${skillPct}% overall progress`} icon={CheckSquare} />
-        <StatCard title="Layer Completed" value={`${completedLayers}/10`} subtitle="Sequential learning path" icon={BookOpen} />
-        <StatCard title="Tổng Giờ Học" value={`${totalHours}h`} subtitle={logs?.length > 0 ? `${logs.length} log entries` : "Chưa có log"} icon={Clock} />
-        <StatCard title="Current Streak" value={`${currentStreak} ngày`} subtitle="Keep it up! 💪" icon={Flame} />
+        <StatCard title="Skill Hoàn Thành" value={`${completedSkills}/${totalSkills}`} subtitle={`${skillPct}% overall progress`} icon={CheckSquare} color="primary" />
+        <StatCard title="Layer Completed" value={`${completedLayers}/10`} subtitle="Sequential learning path" icon={BookOpen} color="primary" />
+        <StatCard title="Tổng Giờ Học" value={`${totalHours}h`} subtitle={logs?.length > 0 ? `${logs.length} log entries` : "Chưa có log"} icon={Clock} color="primary" />
+        <StatCard title="Current Streak" value={`${currentStreak} ngày`} subtitle={currentStreak > 0 ? "Keep it up!" : "Bắt đầu học hôm nay"} icon={Flame} color="amber" iconColor="text-amber-400" />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
