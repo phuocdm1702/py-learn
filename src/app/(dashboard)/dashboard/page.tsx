@@ -1,5 +1,6 @@
 import { getGithubProfile, getRepoDetails, getRecentCommits, getWorkflowRuns, getRepoLanguages } from "@/lib/github"
 import { DashboardClient } from "./client-page"
+import { defaultSettings } from "@/data/seed-data"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -8,9 +9,13 @@ export const metadata: Metadata = {
 
 export const revalidate = 60 // Revalidate this page every 60 seconds
 
+// Default values from settings (can be overridden via localStorage on client)
+const DEFAULT_USERNAME = defaultSettings.githubUsername || "phuocdm1702"
+const DEFAULT_REPO = defaultSettings.githubRepo || "py-learn"
+
 export default async function DashboardPage() {
-  const username = "phuocdm1702"
-  const repoName = "py-learn"
+  const username = DEFAULT_USERNAME
+  const repoName = DEFAULT_REPO
 
   // Fetch all GitHub data in parallel to optimize loading speed
   const [profile, repo, commits, workflows, languages] = await Promise.all([
