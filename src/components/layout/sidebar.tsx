@@ -9,6 +9,9 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
+import { useLocalStorage } from "@/hooks/use-local-storage"
+import { defaultSettings } from "@/data/seed-data"
+import type { UserSettings } from "@/types"
 
 const navigation = [
   {
@@ -20,6 +23,7 @@ const navigation = [
   {
     group: "Learning",
     items: [
+      { title: "Learn", href: "/learn", icon: BookOpen, badge: "New" },
       { title: "Roadmap", href: "/roadmap", icon: Map },
       { title: "Skill Checklist", href: "/checklist", icon: CheckSquare },
       { title: "Daily Log", href: "/daily-log", icon: BookOpen },
@@ -49,6 +53,7 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
+  const [settings] = useLocalStorage<UserSettings>("py_settings", defaultSettings)
 
   return (
     <>
@@ -123,11 +128,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="border-t border-sidebar-border px-6 py-4">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-primary text-sm font-bold">
-              P
+              {settings.name?.charAt(0).toUpperCase() || "P"}
             </div>
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-sidebar-foreground">Python Learner</p>
-              <p className="text-xs text-sidebar-foreground/50">Hardcore Mode 🔥</p>
+              <p className="truncate text-sm font-medium text-sidebar-foreground">{settings.name || "Python Learner"}</p>
+              <p className="text-xs text-sidebar-foreground/50">Hardcore Mode</p>
             </div>
           </div>
         </div>

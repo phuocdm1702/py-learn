@@ -58,4 +58,6 @@ export interface UserSettings {
   targetWeeks: number
   theme: "dark" | "light"
   avatar?: string
+  githubUsername?: string
+  githubRepo?: string
 }

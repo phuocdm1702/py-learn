@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { User, Monitor, Clock, CalendarDays, Palette } from "lucide-react"
+import { User, Monitor, Clock, CalendarDays, Palette, GitBranch } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useLocalStorage } from "@/hooks/use-local-storage"
+import { useTheme } from "@/hooks/use-theme"
 import { defaultSettings } from "@/data/seed-data"
 import type { UserSettings } from "@/types"
 import { cn } from "@/lib/utils"
@@ -14,19 +15,14 @@ export default function SettingsPage() {
   const [settings, setSettings] = useLocalStorage<UserSettings>("py_settings", defaultSettings)
   const [form, setForm] = useState<UserSettings>(settings)
   const [saved, setSaved] = useState(false)
+  const { setTheme } = useTheme()
 
   const saveSettings = () => {
     setSettings(form)
     
-    // Apply theme
+    // Apply theme via hook
     if (form.theme !== settings.theme) {
-      if (form.theme === "dark") {
-        document.documentElement.classList.add("dark")
-        localStorage.setItem("py_theme", "dark")
-      } else {
-        document.documentElement.classList.remove("dark")
-        localStorage.setItem("py_theme", "light")
-      }
+      setTheme(form.theme)
     }
 
     setSaved(true)
@@ -74,6 +70,37 @@ export default function SettingsPage() {
                 {saved ? "Đã lưu!" : "Lưu Thay Đổi"}
               </Button>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* GitHub Settings */}
+        <Card className="md:col-span-2 lg:col-span-1">
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <GitBranch className="h-4 w-4 text-primary" /> GitHub Integration
+            </CardTitle>
+            <CardDescription>Kết nối repo để hiển thị metrics</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">GitHub Username</label>
+              <Input 
+                placeholder="username" 
+                value={form.githubUsername || ""} 
+                onChange={e => setForm(p => ({ ...p, githubUsername: e.target.value }))} 
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-muted-foreground">Repository Name</label>
+              <Input 
+                placeholder="repo-name" 
+                value={form.githubRepo || ""} 
+                onChange={e => setForm(p => ({ ...p, githubRepo: e.target.value }))} 
+              />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Thay đổi sẽ áp dụng sau khi refresh trang.
+            </p>
           </CardContent>
         </Card>
 
