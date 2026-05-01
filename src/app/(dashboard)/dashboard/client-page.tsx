@@ -152,10 +152,10 @@ export function DashboardClient({ githubProfile, githubRepo, githubCommits, gith
       {/* GitHub Repo Metrics (Live) */}
       {githubRepo && (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard title="Repo Stars" value={githubRepo.stargazers_count} subtitle={githubRepo.full_name} icon={Star} iconColor="text-amber-400" />
-          <StatCard title="Forks" value={githubRepo.forks_count} subtitle="Cộng đồng đóng góp" icon={GitFork} iconColor="text-blue-400" />
-          <StatCard title="Open Issues" value={githubRepo.open_issues_count} subtitle="Cần xử lý" icon={CircleDot} iconColor="text-emerald-400" />
-          <StatCard title="Recent Commits" value={githubCommits.length} subtitle="Hoạt động mới nhất" icon={GitCommit} iconColor="text-purple-400" />
+          <StatCard title="Repo Stars" value={githubRepo.stargazers_count} subtitle={githubRepo.full_name} icon={Star} color="amber" />
+          <StatCard title="Forks" value={githubRepo.forks_count} subtitle="Cộng đồng đóng góp" icon={GitFork} color="blue" />
+          <StatCard title="Open Issues" value={githubRepo.open_issues_count} subtitle="Cần xử lý" icon={CircleDot} color="emerald" />
+          <StatCard title="Recent Commits" value={githubCommits.length} subtitle="Hoạt động mới nhất" icon={GitCommit} color="purple" />
         </div>
       )}
 
@@ -164,7 +164,7 @@ export function DashboardClient({ githubProfile, githubRepo, githubCommits, gith
         <StatCard title="Skill Hoàn Thành" value={`${completedSkills}/${totalSkills}`} subtitle={`${skillPct}% overall progress`} icon={CheckSquare} color="primary" />
         <StatCard title="Layer Completed" value={`${completedLayers}/10`} subtitle="Sequential learning path" icon={BookOpen} color="primary" />
         <StatCard title="Tổng Giờ Học" value={`${totalHours}h`} subtitle={logs?.length > 0 ? `${logs.length} log entries` : "Chưa có log"} icon={Clock} color="primary" />
-        <StatCard title="Current Streak" value={`${currentStreak} ngày`} subtitle={currentStreak > 0 ? "Keep it up!" : "Bắt đầu học hôm nay"} icon={Flame} color="amber" iconColor="text-amber-400" />
+        <StatCard title="Current Streak" value={`${currentStreak} ngày`} subtitle={currentStreak > 0 ? "Keep it up!" : "Bắt đầu học hôm nay"} icon={Flame} color="amber" />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
